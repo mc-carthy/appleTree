@@ -1,11 +1,34 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [AddComponentMenu ("Vistage/Basket")]
 public class Basket : MonoBehaviour {
 
+	private Text scoreText;
+	private int score;
+
+	private void Start ()
+	{
+		scoreText = GameObject.Find("scoreText").GetComponent<Text> ();
+		score = 0;
+		UpdateScoreText ();
+	}
+
 	private void Update ()
 	{
 		Move ();
+	}
+
+	private void OnCollisionEnter (Collision other)
+	{
+		GameObject collided = other.gameObject;
+
+		if (collided.tag == "apple")
+		{
+			score++;
+			UpdateScoreText ();
+			Destroy (collided.gameObject);
+		}
 	}
 
 	private void Move ()
@@ -20,13 +43,8 @@ public class Basket : MonoBehaviour {
 		transform.position = pos;
 	}
 
-	private void OnCollisionEnter (Collision other)
+	private void UpdateScoreText ()
 	{
-		GameObject collided = other.gameObject;
-
-		if (collided.tag == "apple")
-		{
-			Destroy(collided.gameObject);
-		}
+		scoreText.text = score.ToString ();
 	}
 }
