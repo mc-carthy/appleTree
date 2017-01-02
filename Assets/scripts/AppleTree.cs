@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 [AddComponentMenu ("Vistage/AppleTree")]
 public class AppleTree : MonoBehaviour {
@@ -14,13 +15,13 @@ public class AppleTree : MonoBehaviour {
 
 	private void Start ()
 	{
-		// Begin apple dropping
+		StartCoroutine (DropApple ());
 	}
 
 	private void Update ()
 	{
-		Move();
-		ChangeDirection();
+		Move ();
+		ChangeDirection ();
 	}
 
 	private void FixedUpdate ()
@@ -47,6 +48,16 @@ public class AppleTree : MonoBehaviour {
 		else if (pos.x > leftRightEdge)
 		{
 			moveSpeed = -Mathf.Abs(moveSpeed);
+		}
+	}
+
+	private IEnumerator DropApple ()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds (timeBetweenAppleDrops);
+			GameObject apple = Instantiate (applePrefab) as GameObject;
+			apple.transform.position = transform.position;
 		}
 	}
 }
