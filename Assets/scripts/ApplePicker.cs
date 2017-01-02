@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 [AddComponentMenu ("Vistage/ApplePicker")]
@@ -37,5 +38,10 @@ public class ApplePicker : MonoBehaviour {
 
 		baskets.RemoveAt (topBasketIndex);
 		Destroy (topBasketGO);
+
+		if (baskets.Count <= 0)
+		{
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().name, LoadSceneMode.Single);
+		}
 	}
 }

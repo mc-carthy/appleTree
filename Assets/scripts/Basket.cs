@@ -27,6 +27,13 @@ public class Basket : MonoBehaviour {
 		{
 			score++;
 			UpdateScoreText ();
+
+			if (score > HighScore.highScore)
+			{
+				HighScore.highScore = score;
+				HighScore.UpdateText ();
+			}
+
 			Destroy (collided.gameObject);
 		}
 	}
